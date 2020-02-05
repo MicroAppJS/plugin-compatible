@@ -44,8 +44,8 @@ module.exports = function createKoaServer(api, {
 
             api.applyPluginHooks('onServerInitDone', { app, args });
 
-            const port = args.port || configPort || 8888;
-            const host = args.host || configHost || 'localhost';
+            const port = args.port || configPort;
+            const host = args.host || configHost;
             return new Promise((resolve, reject) => {
                 app.listen(port, host === 'localhost' ? '0.0.0.0' : host, err => {
                     if (err) {

@@ -46,3 +46,33 @@ module.exports = {
     ],
 };
 ```
+
+## Details
+
+### v1
+
+`v1` 版本兼容 `0.2.x` 版本配置，支持内置 `koa` 服务。
+
+```js
+// options
+{
+    version: 'v1', // default: 'v1'
+    server: false, // default: true
+}
+```
+
+### Options
+
+#### version
+
+版本切换
+
+- type: `string`,
+- default: `v1`
+
+#### server
+
+是否启用内置服务。
+
+- type: `boolean`,
+- default: `true`

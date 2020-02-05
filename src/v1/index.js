@@ -4,6 +4,14 @@
 
 module.exports = function(api, opts) {
 
+    api.registerMethod('modifyChainWebpcakConfig', {
+        type: api.API_TYPE.MODIFY,
+        description: 'compatible: 合并之后提供 webpack-chain 进行再次修改事件',
+    });
+    if (api.modifyChainWebpackConfig) {
+        api.modifyChainWebpackConfig((...args) => api.applyPluginHooks('modifyChainWebpcakConfig', ...args));
+    }
+
     if (opts.server !== false) {
         const createKoaServer = require('./createKoaServer');
         createKoaServer(api);

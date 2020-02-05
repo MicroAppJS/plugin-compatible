@@ -4,7 +4,7 @@ const { path, tryRequire } = require('@micro-app/shared-utils');
 
 function adapter(microConfig) {
     const microServers = [];
-    const { entry, options = {}, info } = microConfig;
+    const { entry, info = {} } = microConfig;
     if (entry) {
         const root = info.root;
         const entryFile = path.resolve(root, entry);
@@ -12,7 +12,6 @@ function adapter(microConfig) {
         if (entryCallback && typeof entryCallback === 'string') {
             microServers.push({
                 link: entryCallback,
-                options,
                 info,
             });
         }

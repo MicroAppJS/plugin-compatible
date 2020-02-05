@@ -4,7 +4,7 @@ const { fs, path, tryRequire } = require('@micro-app/shared-utils');
 
 function adapter(microConfig) {
     const microServers = [];
-    const { hooks, options = {}, info } = microConfig;
+    const { hooks, info = {} } = microConfig;
     if (hooks) {
         const root = info.root;
         const hooksFile = path.resolve(root, hooks);
@@ -18,7 +18,6 @@ function adapter(microConfig) {
                         microServers.push({
                             key,
                             link: hooksCallback,
-                            options,
                             info,
                         });
                     }
