@@ -8,7 +8,10 @@
         "lint": "eslint .",
         "lint:fix": "npm run lint -- --fix",
         "test": "jest",
-        "publish:next": "npm publish --tag next"
+        "publish:next": "npm publish --tag next",
+        "release": "micro-app release",
+        "release:alpha": "npm run release -- --preRelease=alpha",
+        "release:next": "npm run release -- --preRelease=next"
     },
     "files": [
         "bin",
@@ -43,17 +46,18 @@
         ]
     },
     "peerDependencies": {
-        "@micro-app/cli": ">=0.3.0"
+        "@micro-app/cli": ">=0.3.1"
     },
     "devDependencies": {
-        "@micro-app/cli": "^0.3.0-alpha.5",
-        "@types/jest": "^24.0.19",
-        "babel-eslint": "^10.0.3",
+        "@micro-app/cli": "^0.3.1",
+        "@micro-app/plugin-deploy": "^0.0.4",
+        "@types/jest": "^24.9.1",
+        "babel-eslint": "^10.1.0",
         "eslint": "^5.16.0",
         "eslint-config-2o3t": "^1.1.17",
-        "husky": "^3.0.9",
+        "husky": "^3.1.0",
         "jest": "^24.9.0",
-        "lint-staged": "^9.4.2"
+        "lint-staged": "^9.5.0"
     },
     "dependencies": {
         "koa": "^2.11.0",

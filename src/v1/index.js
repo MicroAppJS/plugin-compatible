@@ -28,18 +28,13 @@ module.exports = function(api, opts) {
         const entrys = serverMerge(...micros.map(key => microsServerConfig[key]), selfServerConfig);
         const hooks = serverHooksMerge(...micros.map(key => microsServerConfig[key]), selfServerConfig);
 
+        if (hooks.length || entrys.length) {
         // 转换所有 hooks 和 entry 为插件, 兼容
-        const convertHooks = require('./convertHooks');
-        convertHooks(api, {
-            hooks,
-            entrys,
-        });
-
-        // 创建临时文件
-        const createBuildTempFile = require('./createBuildTempFile');
-        createBuildTempFile(api, {
-            hooks,
-            entrys,
-        });
+            const convertHooks = require('./convertHooks');
+            convertHooks(api, {
+                hooks,
+                entrys,
+            });
+        }
     });
 };
