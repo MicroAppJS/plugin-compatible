@@ -1,3 +1,5 @@
+## [0.0.3](https://github.com/MicroAppJS/plugin-compatible/compare/v0.0.2...v0.0.3) (2020-03-18)
+
 ## 0.0.2 (2020-03-02)
 
 
