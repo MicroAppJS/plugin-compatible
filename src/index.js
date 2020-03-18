@@ -1,16 +1,18 @@
 'use strict';
 
-module.exports = function(api, opts = {}) {
+module.exports = function compatible(api, opts = {}) {
 
     const version = opts.version || 'v1';
 
     // adapter
     switch (version.toLowerCase()) {
         case 'v1':
-        default: {
-            require('./v1')(api, opts);
+            return require('./v1')(api, opts);
+        default:
             break;
-        }
     }
 
+    api.logger.warn('[compatible]', `Not Support Version: ${version}`);
+
+    return;
 };

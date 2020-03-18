@@ -16,37 +16,43 @@ module.exports = function(api, { hooks, entrys }) {
     // 生成模拟插件注册
     // hooks
     (hooks || []).map(({ key, link, info = {} }) => {
-        const hook = tryRequire(link);
-        if (hook && _.isFunction(hook)) {
+        if (link && tryRequire.resolve(link)) {
             const hookName = HOOK_KEY_MAP[key];
             if (hookName) {
                 return {
-                    hookName, hook,
+                    hookName,
                     info, link, key,
                 };
             }
         }
         return false;
-    }).filter(item => !!item).forEach(({ hookName, hook, info, link, key }) => {
+    }).filter(item => !!item).forEach(({ hookName, info, link, key }) => {
         api[hookName](params => {
-            logger.info('[compatible]', `【 ${info.name} 】Hook inject "${key}"`);
-            logger.debug('[compatible]', `【 ${info.name} 】Hook inject "${key}" Link: ${link}`);
-            return hook(params.app, info);
+            const hook = tryRequire(link);
+            if (hook && _.isFunction(hook)) {
+                logger.info('[compatible]', `【 ${info.name} 】Hook inject "${key}"`);
+                logger.debug('[compatible]', `【 ${info.name} 】Hook inject "${key}" Link: ${link}`);
+                return hook(params.app, info);
+            }
+            return false;
         });
     });
 
     // entrys
     (entrys || []).map(item => {
-        const entry = tryRequire(item.link);
-        if (entry && _.isFunction(entry)) {
-            return { ...item, entry };
+        if (item && item.link && tryRequire.resolve(item.link)) {
+            return { ...item };
         }
         return false;
-    }).filter(item => !!item).forEach(({ entry, info, link }) => {
+    }).filter(item => !!item).forEach(({ link, info }) => {
         api.onServerEntry(params => {
-            logger.info(`【 ${info.name} 】Inserted`);
-            logger.debug(`【 ${info.name} 】Inserted Link: ${link}`);
-            return entry(params.app, info);
+            const entry = tryRequire(link);
+            if (entry && _.isFunction(entry)) {
+                logger.info(`【 ${info.name} 】Inserted`);
+                logger.debug(`【 ${info.name} 】Inserted Link: ${link}`);
+                return entry(params.app, info);
+            }
+            return false;
         });
     });
 };
