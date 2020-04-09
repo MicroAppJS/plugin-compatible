@@ -1,3 +1,10 @@
+## [0.0.4](https://github.com/MicroAppJS/plugin-compatible/compare/v0.0.3...v0.0.4) (2020-04-09)
+
+
+### Bug Fixes
+
+* refactoring code ([8751a66](https://github.com/MicroAppJS/plugin-compatible/commit/8751a66ec13f7bfe7529386c49c2023a96c8bcc1))
+
 ## [0.0.3](https://github.com/MicroAppJS/plugin-compatible/compare/v0.0.2...v0.0.3) (2020-03-18)
 
 ## 0.0.2 (2020-03-02)
