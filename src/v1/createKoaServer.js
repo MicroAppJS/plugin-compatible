@@ -1,9 +1,6 @@
 'use strict';
 
-module.exports = function createKoaServer(api, {
-    port: configPort = 8888,
-    host: configHost = 'localhost',
-} = {}) {
+module.exports = function createKoaServer(api, opts) {
 
     const logger = api.logger;
 
@@ -14,6 +11,9 @@ module.exports = function createKoaServer(api, {
 
         // const isDev = api.mode === 'development';
         logger.info('[compatible]', 'Starting Koa2 server...');
+
+        const serverConfig = api.serverConfig || {};
+        const { port: configPort = 8888, host: configHost = 'localhost' } = serverConfig;
 
         return function({ args }) {
             const app = new Koa();
