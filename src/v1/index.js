@@ -4,12 +4,36 @@
 
 module.exports = function(api, opts) {
 
-    api.registerMethod('modifyChainWebpcakConfig', {
-        type: api.API_TYPE.MODIFY,
-        description: 'compatible: 合并之后提供 webpack-chain 进行再次修改事件',
-    });
+    // 兼容 Deprecated
+    if (api.hasKey('modifyWebpackChain')) {
+        // @Deprecated
+        api.registerMethod('modifyChainWebpackConfig', {
+            type: api.API_TYPE.MODIFY,
+            description: '@Deprecated compatible: 合并之后提供 webpack-chain 进行再次修改事件',
+        });
+        api.modifyWebpackChain((...args) => api.applyPluginHooks('modifyChainWebpackConfig', ...args));
+    }
+    if (api.hasKey('onWebpcakChain')) {
+        // @Deprecated
+        api.registerMethod('onChainWebpcakConfig', {
+            type: api.API_TYPE.EVENT,
+            description: '@Deprecated compatible: 修改之后提供 webpack-chain 进行查看事件',
+        });
+        api.onWebpcakChain((...args) => api.applyPluginHooks('onChainWebpcakConfig', ...args));
+    }
+    if (api.hasKey('resolveWebpackChain')) {
+        api.extendMethod('resolveChainableWebpackConfig', {
+            description: '@Deprecated compatible: resolve webpack-chain config.',
+        }, api.resolveWebpackChain);
+    }
+
     // fixed
-    if (api.modifyChainWebpackConfig) {
+    if (api.hasKey('modifyChainWebpackConfig')) {
+        // @Deprecated
+        api.registerMethod('modifyChainWebpcakConfig', {
+            type: api.API_TYPE.MODIFY,
+            description: '@Deprecated compatible: 合并之后提供 webpack-chain 进行再次修改事件',
+        });
         api.modifyChainWebpackConfig((...args) => api.applyPluginHooks('modifyChainWebpcakConfig', ...args));
     }
 
